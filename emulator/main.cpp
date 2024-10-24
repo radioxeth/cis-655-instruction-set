@@ -10,17 +10,9 @@
 #include <iostream>
 #include <vector>
 
-// example of possible instruction layout
-#pragma "packed"
-struct instruction {
-  uint16_t opcode : 8;
-  uint16_t reg1 : 4;
-  uint16_t reg2 : 4;
-};
+#include "instr.hpp"
 
-static_assert(sizeof(add) == sizeof(uint16_t),
-              "add instruction must be 16bits");
-
+instruction intr = {};
 struct Mem {
   // Using vector because we will not know how much we will need
   std::vector<uint8_t> program;
