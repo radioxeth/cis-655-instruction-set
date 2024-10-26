@@ -12,3 +12,6 @@ emulator/src/alu
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
+/.vs/CMake Overview
+/.vs
+/CMakeSettings.json

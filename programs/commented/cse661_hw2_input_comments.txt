@@ -1,0 +1,41 @@
+// find the max and min of the array 8, 7, 11, 10
+
+// init variables
+lci 0, 8, m0 		// m0 max store first element to start
+lci 0, 8, m1		// m1 min store first element to start
+lci 0, 7, m2 		// second element
+lci 0, 11, m3 		// third element
+lci 0, 10, m4  		// fourth element
+lci 0, 4, m5		// array size
+lci 0, 1, m6 		// index to loop with start at 1 for this problem
+lci 0, 0, m7 		// 0 for logic comparisons
+lci 0, 1, m8 		// 1 for logic comparisons
+lci 0, 1, m9 		// base address of array start at 1 because first element stored twice
+
+// this is where a loop would start if we used labels
+am m9, m6, m15 		// calculate address of element going to compare to min and max
+lo m15, m7, m10 	// load element going to compare to min and max in m10
+
+// this is an if statement comparing to the min
+sltm m10, m0, m11 	// compare current element examining to min
+bnem m11, m8, 2 	// branch to next comparison if not a new min
+lo m9, m6, m0 		// update min if a new min
+
+// this is an if statement comparing to the max
+sltm m1, m10, m11 	// compare current element examining to max
+bnem m11, m8, 2 	// branch to next iteration if not a new max
+lo m9, m6, m1 		// update max if a new max
+
+// increment index at end of loop and determine if loop done
+ai m6, 1, m6 		// increment index
+sltm m6, m5, m11 	// compare index to size
+bnem m11, m8, 2 	// branch out of loop if index not < size
+jb 0, 0, 11 		// jump to beginning of loop 11 instructions above this one (am)
+
+// loop has ended so should have answers in m0 and m1; store results in address 16 and 17
+lci 1, 15, m12 		// calculate address 16
+lci 2, 15, m13 		// calculate address 17
+so m12, m7, m0 		// store min in address 16
+so m13, m7, m1 		// store max in address 17
+
+// end of program
