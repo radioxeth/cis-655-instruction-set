@@ -2,10 +2,6 @@
 
 ALU::ALU(std::vector<uint16_t> &mem, int pcInit) : memory(mem), pc(pcInit)
 {
-    M = {{"M0", 0}, {"M1", 1}, {"M2", 2}, {"M3", 3}, {"M4", 4}, {"M5", 5}, {"M6", 6}, {"M7", 7}, {"M8", 8}, {"M9", 9}, {"M10", 10}, {"M11", 11}, {"M12", 12}, {"M13", 13}, {"M14", 14}, {"M15", 15}};
-    OPCODES = {{0b0000, "am"}, {0b0001, "sm"}, {0b0010, "mm"}, {0b0011, "dm"}, {0b0100, "bnem"}, {0b0101, "sltm"}, {0b0110, "ai"}, {0b0111, "si"}, {0b1000, "mi"}, {0b1001, "di"}, {0b1010, "lci"}, {0b1011, "sci"}, {0b1100, "lo"}, {0b1101, "so"}, {0b1110, "jb"}};
-    MEMORY_REGISTERS = {{0b0000, "M0"}, {0b0001, "M1"}, {0b0010, "M2"}, {0b0011, "M3"}, {0b0100, "M4"}, {0b0101, "M5"}, {0b0110, "M6"}, {0b0111, "M7"}, {0b1000, "M8"}, {0b1001, "M9"}, {0b1010, "M10"}, {0b1011, "M11"}, {0b1100, "M12"}, {0b1101, "M13"}, {0b1110, "M14"}, {0b1111, "M15"}};
-
     functions.resize(15);
     functions[0] = [this](uint8_t op1, uint8_t op2, uint8_t op3)
     { return am(op1, op2, op3); };
@@ -290,26 +286,26 @@ void ALU::printExecuting(uint16_t instruction)
 
     if (opcode == 0b1110)
     {
-        std::cout << "CURRENT INSTRUCTION:  " << OPCODES[opcode] << " " << std::to_string(op1) << " " << std::to_string(op2) << " " << std::to_string(op3) << std::endl;
+        std::cout << "CURRENT INSTRUCTION:  " << Instruction::OPCODES[opcode] << " " << std::to_string(op1) << " " << std::to_string(op2) << " " << std::to_string(op3) << std::endl;
         return;
     }
     else if (opcode == 0b1010 || opcode == 0b1011)
     {
-        std::cout << "CURRENT INSTRUCTION:  " << OPCODES[opcode] << " " << std::to_string(op1) << " " << std::to_string(op2) << " " << MEMORY_REGISTERS[op3] << std::endl;
+        std::cout << "CURRENT INSTRUCTION:  " << Instruction::OPCODES[opcode] << " " << std::to_string(op1) << " " << std::to_string(op2) << " " << Instruction::MEMORY_REGISTERS[op3] << std::endl;
         return;
     }
     else if (opcode == 0b0110 || opcode == 0b0111 || opcode == 0b1000 || opcode == 0b1001)
     {
-        std::cout << "CURRENT INSTRUCTION:  " << OPCODES[opcode] << " " << MEMORY_REGISTERS[op1] << " " << std::to_string(op2) << " " << MEMORY_REGISTERS[op3] << std::endl;
+        std::cout << "CURRENT INSTRUCTION:  " << Instruction::OPCODES[opcode] << " " << Instruction::MEMORY_REGISTERS[op1] << " " << std::to_string(op2) << " " << Instruction::MEMORY_REGISTERS[op3] << std::endl;
         return;
     }
     else if (opcode == 0b0100)
     {
-        std::cout << "CURRENT INSTRUCTION:  " << OPCODES[opcode] << " " << MEMORY_REGISTERS[op1] << " " << MEMORY_REGISTERS[op2] << " " << std::to_string(op3) << std::endl;
+        std::cout << "CURRENT INSTRUCTION:  " << Instruction::OPCODES[opcode] << " " << Instruction::MEMORY_REGISTERS[op1] << " " << Instruction::MEMORY_REGISTERS[op2] << " " << std::to_string(op3) << std::endl;
         return;
     }
 
-    std::cout << "CURRENT INSTRUCTION:  " << OPCODES[opcode] << " " << MEMORY_REGISTERS[op1] << " " << MEMORY_REGISTERS[op2] << " " << MEMORY_REGISTERS[op3] << std::endl;
+    std::cout << "CURRENT INSTRUCTION:  " << Instruction::OPCODES[opcode] << " " << Instruction::MEMORY_REGISTERS[op1] << " " << Instruction::MEMORY_REGISTERS[op2] << " " << Instruction::MEMORY_REGISTERS[op3] << std::endl;
 }
 
 // Functions to Print Memory and Contents (if needed)

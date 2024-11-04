@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+#include "instr.hpp"
+
 class ALU
 {
 private:
@@ -52,9 +54,6 @@ public:
     void setPC(int newPC);
     int getPC();
 
-    std::map<std::string, int> M;
-    std::map<uint8_t, std::string> OPCODES;
-    std::map<uint8_t, std::string> MEMORY_REGISTERS;
 };
 
 #endif // ALU_H
