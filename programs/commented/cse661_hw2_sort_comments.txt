@@ -25,16 +25,16 @@ so m14, m7, m10			// swap current element and current element + 1
 
 ai m9, 1, m9			// increment inner idx
 sm m5, m6, m13			// calculate idx have to go up to; get smaller as push greatest elements to the right
-si m13, 1, m13			
+si m13, 1, m13			// decrement
 sltm m9, m13, m12		// loop until greatest element is pushed to the right
-bnem m12, m8, 2
-jb 0, 0, 13
+bnem m12, m8, 2			// branch out of inner loop
+jb 0, 0, 13				// loop to beginning of inner loop
 
 ai m6, 1, m6			// increment outer idx
 si m5, 1, m13			// outer idx just has to be less than size - 1 so can compare 2 elements
 sltm m6, m13, m12		// loop until all greatest elements are pushed to the right
-bnem m12, m8, 2
-jb 0, 4, 15
+bnem m12, m8, 2			// exit if at end of algorithm
+jb 0, 4, 15				// loop if more elements to process
 
 // nested for loops ended so array is sorted; save it
 lci 0, 0, m6			// start a new idx to save array
@@ -47,5 +47,5 @@ lo m13, m7, m11			// array element to save
 so m14, m7, m11			// save array element
 ai m6, 1, m6			// increment idx
 sltm m6, m5, m12		// loop until all sorted array elements saved
-bnem m12, m8, 2
-jb 0, 0, 7
+bnem m12, m8, 2			// branch to end of program if saved all elements		
+jb 0, 0, 7				// more to save

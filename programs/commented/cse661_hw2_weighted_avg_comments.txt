@@ -13,7 +13,7 @@ di m2, 3, m2		// apply weight 3
 di m3, 2, m3		// apply weight 4
 
 am m0, m1, m5		// calculate weighted sum and weighted average
-am m5, m2, m5
-am m5, m3, m5
+am m5, m2, m5		// continue to add
+am m5, m3, m5		// continue to add
 dm m5, m4, m5		// weighted average in m5
 mm m5, m4, m6		// weighted sum in m6
