@@ -8,22 +8,30 @@
 #include "instr.hpp"
 #include "parser.h"
 
-uint16_t byteSwap(uint16_t src) {
-  uint16_t lower = src & 0x00FF;
-  uint16_t upper = src & 0xFF00;
+uint16_t byteSwap(uint16_t src)
+{
+  uint16_t q1 = src & 0xF000;
+  uint16_t q2 = src & 0x0F00;
+  uint16_t upper = (q1 >> 4) | (q2 << 4);
+  uint16_t q3 = src & 0x00F0;
+  uint16_t q4 = src & 0x000F;
+  uint16_t lower = (q3 >> 4) | (q4 << 4);
   return (lower << 8) | (upper >> 8);
 }
 void runALU(std::vector<uint16_t> &mainMemory, int pcInit, int programSize);
 
-int main(int argc, char *argv[]) {
-  if (argc != 2) {
+int main(int argc, char *argv[])
+{
+  if (argc != 2)
+  {
     std::cout << "usage: parser <instruction_file>" << std::endl;
     std::exit(0);
   }
 
   std::string inputFileName = argv[1];
   std::ifstream inputStream(inputFileName);
-  if (!inputStream.is_open()) {
+  if (!inputStream.is_open())
+  {
     std::cout << "Failed to open file." << std::endl;
     std::exit(1);
   }
@@ -34,7 +42,8 @@ int main(int argc, char *argv[]) {
   auto program = Parser::parse(inputStream);
 
   std::vector<uint16_t> instAsUint16;
-  for (auto inst : program) {
+  for (auto inst : program)
+  {
     Instruction::instOrUint16 iou{inst};
     instAsUint16.push_back(byteSwap(iou.uint16));
   }
@@ -47,7 +56,8 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-void runALU(std::vector<uint16_t> &mainMemory, int pcInit, int programSize) {
+void runALU(std::vector<uint16_t> &mainMemory, int pcInit, int programSize)
+{
 
   ALU alu(mainMemory, pcInit);
 
@@ -62,7 +72,8 @@ void runALU(std::vector<uint16_t> &mainMemory, int pcInit, int programSize) {
   std::string input;
   std::getline(std::cin, input);
 
-  while (alu.getPC() < (pcInit + programSize)) {
+  while (alu.getPC() < (pcInit + programSize))
+  {
     // Information before execution
     std::cout << "---------------------------------------------" << std::endl;
     std::cout << "              BEFORE EXECUTION:              " << std::endl;
